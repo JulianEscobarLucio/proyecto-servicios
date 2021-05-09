@@ -21,7 +21,7 @@ public class Usuario  implements Serializable{
 	private String tipoDeDocumento;
 	
 	@Id
-	@Column(name="numero_de_documento")
+	@Column(name="numero_de_documento" ,  length = 36 , updatable = false, nullable = false)
 	private String numeroDeDocumento;	
 	
 	@Column(name="primer_nombre")
