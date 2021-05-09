@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.universidad.proyecto.servicios.app.DTO.RespuestaDTO;
+import com.universidad.proyecto.servicios.app.modelos.User;
 import com.universidad.proyecto.servicios.app.modelos.Usuario;
 import com.universidad.proyecto.servicios.app.servicios.ServicioUsuario;
 
@@ -55,9 +57,14 @@ public class UsuarioControlador {
 	}
 	
 	@GetMapping("/login/{usuario}/{contrasena}")
-	public ResponseEntity<List<Usuario>> login(@PathVariable("usuario") String usuario, @PathVariable("contrasena") String contrasena) {
-		List<Usuario> usuariList = servicioUsuario.login(usuario, contrasena);
-		return new ResponseEntity<List<Usuario>>(usuariList, HttpStatus.OK);
+	public ResponseEntity<RespuestaDTO> login(@PathVariable("usuario") String usuario, @PathVariable("contrasena") String contrasena) {
+		List<User> userList = servicioUsuario.login(usuario, contrasena);
+		RespuestaDTO ARespuestaDTO = new RespuestaDTO();
+		if(userList.isEmpty()) {
+			ARespuestaDTO.setMensaje("Usuario y contraseña no validos");			
+		}
+		return new ResponseEntity<RespuestaDTO>(ARespuestaDTO, HttpStatus.OK);
+
 	}
 	
 
